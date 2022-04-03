@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ثبت آدرس</title>
+
+    <!-- fonts google -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!--map.ir-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.map.ir/web-sdk/1.4.2/css/mapp.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.map.ir/web-sdk/1.4.2/css/fa/style.css"
+    />
+
+    <!-- custom styles -->
+    <link rel="stylesheet" href="./styles/submit.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <form
+        class="form__container"
+        method="POST"
+        action="https://stage.achareh.ir/api/karfarmas/address"
+      >
+        <div class="form__info">
+          <div class="form__info__header">
+            <p>ثبت‌نام</p>
+            <img src="./images/arrow.svg" />
+          </div>
+          <div class="form__info__title">
+            <p>لطفا اطلاعات ورود خود را وارد نمایید</p>
+          </div>
+          <div class="form__info__input-container fname-box">
+            <label class="form__info__input-label" for="fname">نام</label>
+            <input
+              class="form__info__input"
+              id="fname"
+              type="text"
+              name="first_name"
+              autocomplete="off"
+              required
+            />
+            <p class="form__info__check">
+              <span class="material-icons">done</span>
+            </p>
+          </div>
+          <p class="fname-error">نام حداقل باید شامل 3 حرف باشد</p>
+          <div class="form__info__input-container lname-box">
+            <label class="form__info__input-label" for="lname"
+              >نام خانوادگی</label
+            >
+            <input
+              class="form__info__input"
+              id="lname"
+              type="text"
+              name="last_name"
+              autocomplete="off"
+              required
+            />
+            <p class="form__info__check">
+              <span class="material-icons">done</span>
+            </p>
+          </div>
+          <p class="lname-error">نام خانوادگی حداقل باید شامل 3 حرف باشد</p>
+          <div class="form__info__input-container mobile-box">
+            <label class="form__info__input-label" for="mobile"
+              >تلفن همراه</label
+            >
+            <input
+              class="form__info__input"
+              id="mobile"
+              type="tel"
+              name="coordinate_mobile"
+              autocomplete="off"
+              maxlength="11"
+            />
+            <p class="form__info__check">
+              <span class="material-icons">done</span>
+            </p>
+          </div>
+          <p class="mobile-error">تلفن موبایل باید شامل 11 رقم باشد</p>
+          <div class="form__info__input-container">
+            <label class="form__info__input-label" for="phone">تلفن ثابت</label>
+            <input
+              class="form__info__input"
+              id="phone"
+              type="tel"
+              name="coordinate_phone_number"
+              autocomplete="off"
+              maxlength="11"
+            />
+            <p class="form__info__check">
+              <span class="material-icons">done</span>
+            </p>
+          </div>
+          <hr />
+          <p class="address-map">تایید موقعیت روی نقشه</p>
+          <div class="form__info__input-container address-box">
+            <input
+              class="form__info__input address-input"
+              placeholder="آدرس دقیق"
+              id="address"
+              type="text"
+              name="address"
+              autocomplete="off"
+              required
+            />
+            <p class="form__info__check">
+              <span class="material-icons">done</span>
+            </p>
+          </div>
+          <p class="address-error">آدرس حداقل باید شامل 10 حرف باشد</p>
+          <div class="form__info__input-container">
+            <span class="form__info__input-label">جنسیت</span>
+            <input
+              class="radio-input radio-male"
+              type="radio"
+              name="gender"
+              value="male"
+              checked="checked"
+              data-label="male"
+            />
+            <input
+              class="radio-input radio-female"
+              type="radio"
+              name="gender"
+              value="female"
+              data-label="female"
+            />
+            <div class="gender-box">
+              <span class="gender-label active" data-label="male">آقا</span>
+              <span class="gender-label" data-label="female">خانم</span>
+            </div>
+          </div>
+          <div class="latlng-container">
+            <input type="text" name="lat" class="latlng-lat" />
+            <input type="text" name="lng" class="latlng-lng" />
+          </div>
+          <div class="btn__container">
+            <button type="submit" class="btn-next">مرحله بعد</button>
+          </div>
+        </div>
+        <div class="form__map">
+          <div class="form__map__header">
+            <p>موقعیت روی نقشه</p>
+          </div>
+          <div class="form__map__title">
+            <p>موقعیت مورد نظر خود را روی نقشه مشخص کنید</p>
+          </div>
+          <div class="map__container" id="app"></div>
+          <div class="btn__container">
+            <p class="btn-next btn-adress">تایید موقعیت</p>
+          </div>
+        </div>
+      </form>
+      <div class="modal-container">
+        <div class="modal-box">
+          <p class="modal-message"></p>
+          <button class="modal-btn">تایید</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- add jquery -->
+    <!-- <script src="./js/jquery-3.6.0.min.js"></script> -->
+    <script
+      type="text/javascript"
+      src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"
+    ></script>
+
+    <!-- map.ir script -->
+    <script
+      type="text/javascript"
+      src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        // set geographical location
+        var app = new Mapp({
+          element: "#app",
+          presets: {
+            latlng: {
+              lat: 32,
+              lng: 52,
+            },
+            zoom: 6,
+          },
+          apiKey:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4Y2E3OTc3NWJjNGUxN2Q5OGZlYmFkYzBiODQxYzM2YjU4NjcyMmZkOTljNmI2ZmI5ZWNiY2RhMGE5MzdlMmQxMGI3MWM1NDkxMGI2YmFmIn0.eyJhdWQiOiIxNzIzNiIsImp0aSI6Ijc4Y2E3OTc3NWJjNGUxN2Q5OGZlYmFkYzBiODQxYzM2YjU4NjcyMmZkOTljNmI2ZmI5ZWNiY2RhMGE5MzdlMmQxMGI3MWM1NDkxMGI2YmFmIiwiaWF0IjoxNjQ2MDYyMjU3LCJuYmYiOjE2NDYwNjIyNTcsImV4cCI6MTY0ODQ3Nzg1Nywic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.qbpd-XQNgtZV1HtMM04-NWt50XBVHTwh0M9UmaAw1DAmDam39OKrkVblnEC8h078l6ElBKIwbYC84ayDzbYkU6dHfi-PC5AKnX9RsleytgHn9J-2Hem49ri9YLzFkKp5WsOi5NzTGAQHhy05X-FK8smQ1BWRDYVpSeRjBg_Ar9P_gmbiBspkVNqJYYMC1w9j84hEe0zFDpDPOj_L1KzOZisJoKerYp-PKBaxgqoz_0ekoiTgIQa6SVTRIamya2fqGikmqMDFINktNJ-gGIbFcoj0prbGiI2ImGdAT_JOP3UOJU8l8v3xNHb57w8X1ZwbiAbt4OF0DfBhzUImDhLNYA",
+        });
+        app.addLayers();
+        app.map.on("click", function (e) {
+          $(".latlng-lat").val(e.latlng.lat);
+          $(".latlng-lng").val(e.latlng.lng);
+          app.showReverseGeocode({
+            state: {
+              latlng: {
+                lat: e.latlng.lat,
+                lng: e.latlng.lng,
+              },
+              zoom: 16,
+            },
+          });
+        });
+
+        // get fname and validation
+        $("#fname").keyup(fnameValidation);
+
+        // get lname and validation
+        $("#lname").keyup(lnameValidation);
+
+        // get coordinate_mobile and validation
+        $("#mobile").keyup(mobileValidation);
+
+        // phone validation
+        $("#phone").keyup(pnoneValidation);
+
+        // get address and validation
+        $("#address").keyup(addressValidation);
+
+        // select gender
+        $(".gender-label").click(function () {
+          $(".gender-label").removeClass("active");
+          $(this).addClass("active");
+          let labelTarget = $(this).data("label");
+          $(`.radio-input[data-label~=${labelTarget}]`).attr(
+            "checked",
+            "checked"
+          );
+        });
+
+        //close modal
+        $(".modal-btn").click(function () {
+          $(".modal-container").css("display", "none");
+        });
+
+        // functions
+        function fnameValidation() {
+          let target = $("#fname");
+          let fname = target[0].value;
+
+          if (fname.length >= 3) {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .addClass("active");
+            $(".fname-box").css("border", "1px solid gainsboro");
+            $(".fname-error").css("display", "none");
+            return true;
+          } else {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .removeClass("active");
+            return false;
+          }
+        }
+
+        function lnameValidation() {
+          let target = $("#lname");
+          let lname = target[0].value;
+
+          if (lname.length >= 3) {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .addClass("active");
+            $(".lname-box").css("border", "1px solid gainsboro");
+            $(".lname-error").css("display", "none");
+            return true;
+          } else {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .removeClass("active");
+            return false;
+          }
+        }
+
+        function mobileValidation() {
+          let target = $("#mobile");
+          let mobile = target[0].value;
+
+          if (mobile.length == 11) {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .addClass("active");
+            $(".mobile-box").css("border", "1px solid gainsboro");
+            $(".mobile-error").css("display", "none");
+            return true;
+          } else {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .removeClass("active");
+            return false;
+          }
+        }
+
+        function pnoneValidation() {
+          let target = $("#phone");
+          let phone = target[0].value;
+
+          if (phone.length == 11) {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .addClass("active");
+            return true;
+          } else {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .removeClass("active");
+            return false;
+          }
+        }
+
+        function addressValidation() {
+          let target = $("#address");
+          let mobile = target[0].value;
+
+          if (mobile.length >= 10) {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .addClass("active");
+            $(".address-box").css("border", "1px solid gainsboro");
+            $(".address-error").css("display", "none");
+            return true;
+          } else {
+            $(event.currentTarget)
+              .siblings(".form__info__check")
+              .removeClass("active");
+            return false;
+          }
+        }
+
+        // select adress from map
+        $(".address-map").click(function () {
+          $(".form__map").addClass("show-form__map");
+        });
+
+        $(".btn-adress").click(function () {
+          $(".form__map").removeClass("show-form__map");
+        });
+
+        // submit form
+        $("form").submit(function (e) {
+          e.preventDefault();
+
+          // validation inputs
+          let fnameStatus = fnameValidation();
+          let lnameStatus = lnameValidation();
+          let mobileStatus = mobileValidation();
+          let addressStatus = addressValidation();
+
+          if (fnameStatus && lnameStatus && mobileStatus && addressStatus) {
+            let frm = $(".form__container");
+
+            $.ajax({
+              type: frm.attr("method"),
+              url: frm.attr("action"),
+              headers: {
+                Authorization: "Basic MDk4MjIyMjIyMjI6c2FuYTEyMzQ=",
+              },
+              data: frm.serialize(),
+              success: function (data) {
+                console.log("Submission was successful.");
+                $(".modal-container").css("display", "flex");
+                $(".modal-message").text("ثبت نام با موفقیت انجام شد");
+                console.log(data);
+              },
+              error: function (data) {
+                console.log("An error occurred.");
+                $(".modal-container").css("display", "flex");
+                $(".modal-message").text("اطلاعات وارد شده نادرست است");
+                console.log(data);
+              },
+            });
+          }
+
+          if (!fnameStatus) {
+            $(".fname-error").css("display", "block");
+            $(".fname-box").css("border", "1px solid red");
+          }
+
+          if (!lnameStatus) {
+            $(".lname-error").css("display", "block");
+            $(".lname-box").css("border", "1px solid red");
+          }
+
+          if (!mobileStatus) {
+            $(".mobile-error").css("display", "block");
+            $(".mobile-box").css("border", "1px solid red");
+          }
+
+          if (!addressStatus) {
+            $(".address-error").css("display", "block");
+            $(".address-box").css("border", "1px solid red");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

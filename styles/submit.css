@@ -1,0 +1,297 @@
+@font-face {
+    font-family: IRANSansWeb;
+    src: url('../fonts/IRANSansWeb\(FaNum\).woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: IRANSansWeb;
+}
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: aliceblue;
+}
+
+.form__container {
+    position: relative;
+    max-width: 500px;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.form__info {
+    max-width: 500px;
+    width: 100%;
+    height: 100%;
+}
+
+.form__map {
+    position: fixed;
+    max-width: 500px;
+    top: 0;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    transition: all .3s ease;
+}
+
+.form__info__header,
+.form__map__header {
+    width: 100%;
+    height: 50px;
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.form__info__header img {
+    width: 20px;
+    height: 20px;
+}
+
+.form__info__title {
+    background-color: rgb(240, 240, 240);
+    padding: 1rem;
+}
+
+.form__info__input-container {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    justify-content: space-between;
+}
+
+.form__info__input-label {
+    color: rgb(40, 133, 180);
+    width: 82px;
+}
+
+.form__info__input {
+    font-family: IRANSansWeb;
+    font-size: 1rem;
+    flex: 1;
+    margin: 0 .5rem;
+    padding: .2rem .5rem;
+    border: none;
+}
+
+.form__info__input:focus {
+    outline: none;
+}
+
+.form__info__check {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(240, 240, 240);
+    border-radius: 100%;
+}
+
+.form__info__check span{
+    font-size: 14px;
+    color: rgb(240, 240, 240);
+}
+
+.form__info__input-container ~ hr {
+    background-color: rgb(240, 240, 240);
+    border: none;
+    height: 1rem;
+    margin-top: 1rem;
+}
+
+.address-map {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    color: #fff;
+    padding: .3rem;
+    text-align: center;
+    background-color: rgb(22, 217, 152);
+    border-radius: 5px;
+    box-shadow: 0 1px 5px gainsboro;
+    cursor: pointer;
+}
+
+.form__info__input-container:last-of-type {
+    border: none;
+}
+
+.radio-input {
+    display: none;
+}
+
+.gender-box {
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2rem;
+    background-color: rgb(40, 133, 180);
+}
+
+.gender-box span {
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    width: 50%;
+    color: #fff;
+    cursor:pointer;
+}
+
+.gender-box span:first-of-type {
+    border-radius: 0 5px 5px 0;
+}
+
+.gender-box span:last-of-type {
+    border-radius: 5px 0 0 5px;
+}
+
+.gender-box span.active {
+    background-color: #fff;
+    color: rgb(40, 133, 180);
+}
+
+.btn__container {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(240, 240, 240);
+    margin-top: 1rem;
+    z-index: 1000;
+}
+
+.btn-next {
+    font-family: IRANSansWeb;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 40px;
+    width: 300px;
+    border: none;
+    background-color: rgb(22, 217, 152);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.show-form__map {
+    right: 0;
+}
+
+.form__map__title {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    background-color: rgba(240, 240, 240, .5);
+    z-index: 1000;
+}
+
+.map__container {
+    width: 100%;
+    height: calc(100vh - 50px);
+    background-color: #fff;
+}
+
+.form__map .btn__container {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(240, 240, 240, .5);
+}
+
+.form__info__check.active {
+    background-color: rgb(22, 217, 152);
+
+}
+
+.form__info__check.active span {
+    color: #fff;
+}
+
+.fname-error,
+.lname-error,
+.mobile-error,
+.address-error {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+
+.modal-container {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-box {
+    width: 70%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.modal-btn {
+    width: 100px;
+    padding: .5rem 0;
+    margin-top: 1rem;
+    background-color: rgb(22, 217, 152);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    font-family: IRANSansWeb;
+}
+
+.latlng-container {
+    display: none;
+}
+
+.mapp-modal.mapp-modal-bottom.large.is-visible {
+    bottom: 4rem;
+}
+
+@media only screen and (min-width: 500px){
+    .show-form__map {
+        right: calc(50% - 250px);
+    }
+    
+}

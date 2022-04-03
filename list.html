@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لیست آدرس ها</title>
+
+  <link rel="stylesheet" href="./styles/list.css" />
+</head>
+
+<body>
+  <section class="wrapper">
+    <article class="card-box">
+      <p class="card-address"></p>
+      <div class="user-info">
+        <span class="card-fname"></span>
+        <span class="card-lname"></span>
+      </div>
+      <p class="card-mobile"></p>
+    </article>
+  </section>
+
+  <!-- add jquery -->
+  <script src="./js/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $.ajax({
+      type: "POST",
+      url: "https://stage.achareh.ir/api/karfarmas/address",
+      dataType: 'json',
+      headers: {
+        "Authorization": "Basic MDk4MjIyMjIyMjI6c2FuYTEyMzQ="
+      },
+      success: function (result) {
+        console.log(result)
+
+        $('.card-address').text(result.address);
+        $('.card-fname').text(result.first_name);
+        $('.card-lname').text(result.last_name);
+        $('.card-mobile').text(result.coordinate_mobile);
+      },
+      error: function (data) {
+        console.log('An error occurred.');
+        console.log(data);
+      },
+    });
+  </script>
+</body>
+
+</html>
